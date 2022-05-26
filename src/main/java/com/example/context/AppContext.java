@@ -1,13 +1,13 @@
 package com.example.context;
 
 import com.example.paths.SeleniumXpath;
-import com.example.utils.DataGenerator;
 
 import java.util.List;
 import java.util.Map;
 
 import static com.example.paths.LoginElement.LOGIN_EMAIL;
 import static com.example.paths.LoginElement.LOGIN_PASSWORD;
+import static com.example.utils.DataGenerator.generateEmployeeData;
 
 public class AppContext {
 
@@ -15,7 +15,7 @@ public class AppContext {
     private static final List<Map<SeleniumXpath, String>> employeeData;
 
     static {
-        employeeData = DataGenerator.generateEmployeeData();
+        employeeData = generateEmployeeData();
     }
 
     private AppContext() {

@@ -18,18 +18,19 @@ import static com.example.paths.RegisterElement.PASSWORD;
 
 public class DataGenerator {
 
-    private static final Faker faker = new Faker();
-
     private DataGenerator() {
     }
 
     public static List<Map<SeleniumXpath, String>> generateEmployeeData() {
+        Faker faker = new Faker();
         List<Map<SeleniumXpath, String>> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Name name = faker.name();
-            list.add(Map.of(FIRST_NAME, name.firstName(),
-                    LAST_NAME, name.lastName(),
-                    EMAIL, name.username() + "@gmail.com",
+            String firstName = name.firstName();
+            String lastName = name.lastName();
+            list.add(Map.of(FIRST_NAME, firstName,
+                    LAST_NAME, lastName,
+                    EMAIL, createEmail(firstName, lastName),
                     PASSWORD, AppContext.SHARED_PWD,
                     EMP_ID, String.valueOf(faker.number().randomNumber(5, false)),
                     LOCATION, faker.address().city()));
@@ -37,7 +38,15 @@ public class DataGenerator {
         return list;
     }
 
+    private static String createEmail(String firstName, String lastName) {
+        return cleanup(firstName) + "." + cleanup(lastName) + "@gmail.com";
+    }
+
+    public static String cleanup(String s) {
+        return s.replace("'", "").toLowerCase();
+    }
+
     public static String generateParagraph() {
-        return faker.lorem().paragraph();
+        return new Faker().lorem().paragraph();
     }
 }
