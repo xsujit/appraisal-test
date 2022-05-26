@@ -17,8 +17,10 @@ import static com.example.driver.Browser.quit;
 import static com.example.paths.RegisterElement.PROJECT;
 import static com.example.utils.TransformUtils.convertToEmployees;
 import static com.example.utils.TransformUtils.convertToObjects;
+import static com.example.utils.WebDriverUtil.getCurrentUrl;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
+import static org.testng.Assert.assertEquals;
 
 public class RegisterTest {
 
@@ -35,6 +37,7 @@ public class RegisterTest {
                 .enterDetails(employee)
                 .selectProject(PROJECT, "SLC Onsite")
                 .submit();
+        assertEquals(getCurrentUrl(), "http://localhost:8080/login");
     }
 
     @Test(dependsOnMethods = "registerDataEntryTest")

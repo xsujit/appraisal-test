@@ -8,6 +8,7 @@ import com.github.javafaker.Name;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.paths.RegisterElement.EMAIL;
 import static com.example.paths.RegisterElement.EMP_ID;
@@ -32,7 +33,7 @@ public class DataGenerator {
                     LAST_NAME, lastName,
                     EMAIL, createEmail(firstName, lastName),
                     PASSWORD, AppContext.SHARED_PWD,
-                    EMP_ID, String.valueOf(faker.number().randomNumber(5, false)),
+                    EMP_ID, String.valueOf(ThreadLocalRandom.current().nextLong(99, 99_999)),
                     LOCATION, faker.address().city()));
         }
         return list;

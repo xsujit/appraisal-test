@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static com.example.paths.ManageUserElement.APPROVED_USERS;
 import static com.example.paths.ManageUserElement.APPROVE_USER;
 import static com.example.paths.ManageUserElement.PENDING_USERS;
-import static com.example.paths.RegisterElement.SUBMIT;
+import static com.example.utils.WebDriverUtil.click;
 import static com.example.utils.WebDriverUtil.findElement;
 
 public class ManageUserPage {
@@ -40,15 +40,16 @@ public class ManageUserPage {
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
             String employeeId = columns.get(1).getText();
+            WebElement input = columns.get(5).findElement(By.tagName("input"));
             if (employeeIds.contains(employeeId)) {
-                columns.get(5).findElement(By.tagName("input")).click();
+                click(input);
             }
         }
         return this;
     }
 
     public ManageUserPage approveUsers() {
-        findElement(APPROVE_USER).click();
+        click(APPROVE_USER);
         return this;
     }
 
@@ -65,10 +66,6 @@ public class ManageUserPage {
             employees.add(new Employee(emp.get(1), emp.get(2), emp.get(3), emp.get(4)));
         }
         return employees;
-    }
-
-    public void submit() {
-        findElement(SUBMIT).click();
     }
 
 }
